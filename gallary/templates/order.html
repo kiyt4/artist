@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load cart %}
+{% block content %}
+<div class=" p-2 bd-highlight">
+    <table class="table table-striped">
+        <tr>
+            <th scope="col">Sr No.</th>
+            <th scope="col">Product</th>
+            <th scope="col">price</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Address</th>
+            <th scope="col">Date</th>
+            <th scope="col">Phoneno</th>
+            <th scope="col">TotalPrice</th>
+            <th scope="col">Status</th>
+        </tr>
+        {% for order in orderd %}
+        <tr>
+            
+            <td>{{forloop.counter}}</td>
+            {{order.products}}
+            <td><img src="{{order.products.image.url}}" width=100% height= 20% alt=""></td>
+            <td>{{order.price}}</td>
+            <td>{{order.quntity}}</td>
+            <td>{{order.Address}}</td>
+            <td>{{order.date}}</td>
+            <td>{{order.phone}}</td>
+            <td>{{order.price|grandtotal:order.quntity}}</td>
+            {% comment %} <td>uuuuuu{{order.price|payamount:order.quantity}}</td> {% endcomment %}
+            {% if order.status %}
+            <td><span class="badge bg-success">Order placed</span></td>
+            {% else %}
+            <td><span class="badge bg-warning">Pending</span></td>
+            {% endif %}
+           
+        </tr>        
+        {% endfor %}
+    
+        {% comment %} <tfoot>
+            <tr>
+                <td>Total Price</td>
+                <td>{{order|grand_total:request.session.cart}}</td>
+            </tr>
+        </tfoot> {% endcomment %}
+    </table>
+    <div class="d-flex justify-content-end">
+        <label for="payable amount">Payable amount</label>
+        <div class="d-flex justify-content-end">
+            <td>
+                {{c}}
+
+            </td>
+        </div>
+
+    </div>
+    <!-- <div class="d-flex justify-content-end">
+    
+    </div>
+    <div class="d-flex justify-content-end">
+        <a  href="{% url 'home' %}" class="btn btn-block btn-primary">Back to home</a>
+    </div> -->
+
+    
+</div>
+
+
+{% endblock content %}
